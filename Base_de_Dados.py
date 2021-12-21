@@ -7,114 +7,140 @@ def main():
     função = ['eletricista','eletricista','eletricista','motorista|munkeiro','eletricista lv','eletricista','motorista|eletricista lv','eletricista','motorista|munkeiro','encarregado','motorista|munkeiro','aux.eletricista','aux.eletricista','encarregado','eletricista','aux.técnico','encarregado','eletricista lv','motorista|munkeiro','eletricista','eletricista lv','aux.eletricista','encarregado','-','eletricista','encarregado','motorista|munkeiro','programador','encarregado','motorista|munkeiro','encarregado','aux.eletricista','aux.eletricista','aux.técnico','planejador','motorista|eletricista lv','eletricista','eletricista']
     equipe = ['lm 03','lm 03','lm 02','lm 02','lm 01','-','-','-','lm 03','lv 01','lm 01','lm 01','lm 03','-','lm 03','-','lm 01','lv 01','-','lm 02','lv 01','-','lm 04','quase fora','lm 01','lm 02','chefe transporte','-','lv','-','lm 01','-','lm 02','-','-','lv 01','lm 02','-']
 
-    busca = str(input("Quer buscar por 'nome', 'matrícula', 'função' ou 'equipe'?\n")).lower()
+    usuario = str(input("Qual o seu usuário?\n"))
     
-    if busca == "nome":
-        print("\nModo de Busca selecionado 'Nome'")
-        a = "1"
+    def buscar_informação():
 
-        while a == "1":
+        busca = str(input("Quer buscar por 'nome', 'matrícula', 'função' ou 'equipe'?\n")).lower()
+        
+        if busca == "nome":
+            print("\nModo de Busca selecionado 'Nome'")
+            a = "1"
 
-            entrada = str(input("Digite o nome do funcionário: ")).lower()
-            b=0
+            while a == "1":
 
-            for i in funcionários:
-                if entrada in i:
-                    saida = b 
+                entrada = str(input("Digite o nome do funcionário: ")).lower()
+                b=0
+
+                for i in funcionários:
+                    if entrada in i:
+                        saida = b 
+                        print("\nNome:{}".format(funcionários[saida]).upper())
+                        print("Matricula:{}".format(matriculas[saida]).upper())
+                        print("Função:{}".format(função[saida]).upper())
+                        print("Equipe:{}\n".format(equipe[saida]).upper())
+
+                        caminho = "C:\\Users\\{}\\Documents\\Colaboradores\\{}".format(usuario, funcionários[saida])
+                        if not os.path.exists(caminho):
+                            os.makedirs(caminho)
+                            caminho=os.path.realpath(caminho)
+                            os.startfile(caminho)
+                        else:
+                            caminho=os.path.realpath(caminho)
+                            os.startfile(caminho)
+
+                        a = "0"
+                        b+=1
+
+                    else:
+                        b+=1
+
+        elif busca == "matrícula" or busca =="matricula":
+            print("\nModo de Busca selecionado 'Matrícula'")
+            a = "1"
+
+            while a == "1":
+
+                entrada = str(input("Digite a matrícula do funcionário: "))
+
+                if entrada in matriculas:
+                    saida = matriculas.index(entrada) 
                     print("\nNome:{}".format(funcionários[saida]).upper())
                     print("Matricula:{}".format(matriculas[saida]).upper())
                     print("Função:{}".format(função[saida]).upper())
                     print("Equipe:{}\n".format(equipe[saida]).upper())
-
-                    caminho = "C:\\Users\\gabriel.fonseca\\Documents\\Colaboradores\\{}".format(funcionários[saida])
-                    caminho=os.path.realpath(caminho)
-                    os.startfile(caminho)
-
                     a = "0"
-                    b+=1
+
+                    caminho = "C:\\Users\\{}\\Documents\\Colaboradores\\{}".format(usuario, funcionários[saida])
+                    if not os.path.exists(caminho):
+                        os.makedirs(caminho)
+                        caminho=os.path.realpath(caminho)
+                        os.startfile(caminho)
+                    else:
+                        caminho=os.path.realpath(caminho)
+                        os.startfile(caminho)
 
                 else:
-                    b+=1
+                    print("\nMatrícula incorreta... Digite novamente...")
 
-    elif busca == "matrícula" or busca =="matricula":
-        print("\nModo de Busca selecionado 'Matrícula'")
-        a = "1"
+        elif busca == "função" or busca == "funcao":
+            print("\nModo de Busca selecionado 'Função'")
+            a = "1"
 
-        while a == "1":
+            while a == "1":
 
-            entrada = str(input("Digite a matrícula do funcionário: "))
+                entrada = str(input("Digite a Função que deseja buscar: ")).lower()
+                b = 0
 
-            if entrada in matriculas:
-                saida = matriculas.index(entrada) 
-                print("\nNome:{}".format(funcionários[saida]).upper())
-                print("Matricula:{}".format(matriculas[saida]).upper())
-                print("Função:{}".format(função[saida]).upper())
-                print("Equipe:{}\n".format(equipe[saida]).upper())
-                a = "0"
+                for i in função:
+                    if entrada == i:
+                        saida = b
+                        print("\nNome:{}".format(funcionários[saida]).upper())
+                        print("Matricula:{}".format(matriculas[saida]).upper())
+                        print("Função:{}".format(função[saida]).upper())
+                        print("Equipe:{}\n".format(equipe[saida]).upper())
+                        a = "0" 
+                        b+=1 
 
-                caminho = "C:\\Users\\gabriel.fonseca\\Documents\\Colaboradores\\{}".format(funcionários[saida])
-                caminho = os.path.realpath(caminho)
-                os.startfile(caminho)
+                        caminho = "C:\\Users\\{}\\Documents\\Colaboradores\\{}".format(usuario, funcionários[saida])
+                        if not os.path.exists(caminho):
+                            os.makedirs(caminho)
+                            caminho=os.path.realpath(caminho)
+                            os.startfile(caminho)
+                        else:
+                            caminho=os.path.realpath(caminho)
+                            os.startfile(caminho)
 
-            else:
-                print("\nMatrícula incorreta... Digite novamente...")
+                    else:
+                        b+=1
 
-    elif busca == "função" or busca == "funcao":
-        print("\nModo de Busca selecionado 'Função'")
-        a = "1"
+        elif busca == "equipe":
+            print("\nModo de Busca selecionado 'Equipe'")
+            a = "1"
 
-        while a == "1":
+            while a == "1":
 
-            entrada = str(input("Digite a Função que deseja buscar: ")).lower()
-            b = 0
+                entrada = str(input("Digite a Equipe que deseja buscar: ")).lower()
+                b = 0
 
-            for i in função:
-                if entrada == i:
-                    saida = b
-                    print("\nNome:{}".format(funcionários[saida]).upper())
-                    print("Matricula:{}".format(matriculas[saida]).upper())
-                    print("Função:{}".format(função[saida]).upper())
-                    print("Equipe:{}\n".format(equipe[saida]).upper())
-                    a = "0" 
-                    b+=1 
+                for i in equipe:
+                    if entrada == i:
+                        saida = b
+                        print("\nNome:{}".format(funcionários[saida]).upper())
+                        print("Matricula:{}".format(matriculas[saida]).upper())
+                        print("Função:{}".format(função[saida]).upper())
+                        print("Equipe:{}\n".format(equipe[saida]).upper())
+                        a = "0" 
+                        b+=1 
 
-                    caminho = "C:\\Users\\gabriel.fonseca\\Documents\\Colaboradores\\{}".format(funcionários[saida])
-                    caminho=os.path.realpath(caminho)
-                    os.startfile(caminho)
+                        caminho = "C:\\Users\\{}\\Documents\\Colaboradores\\{}".format(usuario, funcionários[saida])
+                        if not os.path.exists(caminho):
+                            os.makedirs(caminho)
+                            caminho=os.path.realpath(caminho)
+                            os.startfile(caminho)
+                        else:
+                            caminho=os.path.realpath(caminho)
+                            os.startfile(caminho)
 
-                else:
-                    b+=1
+                    else:
+                        b+=1      
 
-    elif busca == "equipe":
-        print("\nModo de Busca selecionado 'Equipe'")
-        a = "1"
-
-        while a == "1":
-
-            entrada = str(input("Digite a Equipe que deseja buscar: ")).lower()
-            b = 0
-
-            for i in equipe:
-                if entrada == i:
-                    saida = b
-                    print("\nNome:{}".format(funcionários[saida]).upper())
-                    print("Matricula:{}".format(matriculas[saida]).upper())
-                    print("Função:{}".format(função[saida]).upper())
-                    print("Equipe:{}\n".format(equipe[saida]).upper())
-                    a = "0" 
-                    b+=1 
-
-                    caminho = "C:\\Users\\gabriel.fonseca\\Documents\\Colaboradores\\{}".format(funcionários[saida])".format(funcionários[saida])
-                    caminho=os.path.realpath(caminho)
-                    os.startfile(caminho)
-
-                else:
-                    b+=1      
-
-    else:
-        print("Dados inválidos... Digite novamente")
-        return main()
+        else:
+            print("Dados inválidos... Digite novamente")
+            return buscar_informação()
+        
+        buscar_informação()
     
-    main()
+    buscar_informação()
 
 main()
