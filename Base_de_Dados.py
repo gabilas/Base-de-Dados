@@ -26,7 +26,7 @@ def main():
                     print("Função:{}".format(função[saida]).upper())
                     print("Equipe:{}\n".format(equipe[saida]).upper())
 
-                    caminho = "C:\\Users\\gabriel.fonseca\\Documents\\Espelho de Ponto\\Dezembro-2021-01-15\\{}.pdf".format(funcionários[saida])
+                    caminho = "C:\\Users\\gabriel.fonseca\\Documents\\Colaboradores\\{}".format(funcionários[saida])
                     caminho=os.path.realpath(caminho)
                     os.startfile(caminho)
 
@@ -52,7 +52,7 @@ def main():
                 print("Equipe:{}\n".format(equipe[saida]).upper())
                 a = "0"
 
-                caminho = "C:\\Users\\gabriel.fonseca\\Documents\\Espelho de Ponto\\Dezembro-2021-01-15\\{}.pdf".format(funcionários[saida])
+                caminho = "C:\\Users\\gabriel.fonseca\\Documents\\Colaboradores\\{}".format(funcionários[saida])
                 caminho = os.path.realpath(caminho)
                 os.startfile(caminho)
 
@@ -78,7 +78,7 @@ def main():
                     a = "0" 
                     b+=1 
 
-                    caminho = "C:\\Users\\gabriel.fonseca\\Documents\\Espelho de Ponto\\Dezembro-2021-01-15\\{}.pdf".format(funcionários[saida])
+                    caminho = "C:\\Users\\gabriel.fonseca\\Documents\\Colaboradores\\{}".format(funcionários[saida])
                     caminho=os.path.realpath(caminho)
                     os.startfile(caminho)
 
@@ -104,7 +104,7 @@ def main():
                     a = "0" 
                     b+=1 
 
-                    caminho = "C:\\Users\\gabriel.fonseca\\Documents\\Espelho de Ponto\\Dezembro-2021-01-15\\{}.pdf".format(funcionários[saida])
+                    caminho = "C:\\Users\\gabriel.fonseca\\Documents\\Colaboradores\\{}".format(funcionários[saida])".format(funcionários[saida])
                     caminho=os.path.realpath(caminho)
                     os.startfile(caminho)
 
