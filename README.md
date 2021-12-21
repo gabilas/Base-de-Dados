@@ -9,5 +9,8 @@ Programa criado para a @Control SE, com o intuito de obter informações e docum
 ## Instruções de uso
 
 - Instalar o python 3;
-- Ter uma pasta com nome 'Colaboradores' e dentro dela uma pasta com o nome completo de cada colaborador com caminho da seguinte maneira:'Documentos\Colaboradores\"NOME DO COLABORADOR"';
-- Executar o programa.
+- Digitar o usuário;
+- Executar o programa;
+- Escolher o método de pesquisa (Nome, matrícula, Função, Equipe);
+- Verificar as informações exibidas e a pasta do colaborador.
+
