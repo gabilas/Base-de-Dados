@@ -11,6 +11,7 @@ Programa criado para a @Control SE, com o intuito de obter informações e docum
 
 - Instalar o python 3;
 - Instalar o openpyxl;
+- Instalar o pytest-shutil
 - Ter uma base de dados com o nome dos colaboradores no diretório 'C:\Users\"usuário"\Documents\Colaboradores\"base de dados.xlsx"'
 - Executar o programa;
 - Digitar o usuário;
