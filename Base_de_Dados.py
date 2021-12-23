@@ -6,7 +6,7 @@ import time
 
 def main():
 
-    usuario = str(input("Qual o seu usuário?\n"))
+    usuario = str(input("Qual o seu usuário?\n")).lower()
 
     Planilha_base_de_dados = load_workbook("C:\\Users\\{}\\Documents\\Colaboradores\\Colaboradores.xlsx".format(usuario))
     Aba = Planilha_base_de_dados.active
@@ -58,7 +58,7 @@ def main():
     
     def buscar_informação():
 
-        busca = str(input("\nQuer buscar por 'nome', 'matrícula', 'função' ou 'equipe'?\n")).lower()
+        busca = str(input("\nQuer buscar por 'Nome', 'Matrícula', 'Função' ou 'Equipe'?\n")).lower()
         
         if busca == "nome":
             print("\nModo de Busca selecionado 'Nome'")
@@ -66,7 +66,7 @@ def main():
 
             while a == "1":
 
-                entrada = str(input("Digite o nome do funcionário: ")).lower()
+                entrada = str(input("Digite o nome do funcionário: ")).upper()
                 b=0
                 c=0
 
@@ -95,7 +95,7 @@ def main():
                                 if copiar_arquivos == "sim":
                                     for raiz, diretorios, arquivos in os.walk("C:\\Users\\{}".format(usuario)):
                                         for arquivo in arquivos:
-                                            if entrada in arquivo.lower():
+                                            if funcionários[saida] in arquivo:
                                                 caminho_Completo = os.path.join(raiz, arquivo)
                                                 nome_arquivo, ext_arquivo = os.path.splitext(arquivo)
                                                 local_salvar = "C:\\Users\\{}\\Documents\\Colaboradores\\{}\\{}{}".format(usuario, funcionários[saida],nome_arquivo,ext_arquivo)
@@ -106,7 +106,7 @@ def main():
                                 if copiar_arquivos == "sim":
                                     for raiz, diretorios, arquivos in os.walk("C:\\Users\\{}".format(usuario)):
                                         for arquivo in arquivos:
-                                            if entrada in arquivo.lower:
+                                            if funcionários[saida] in arquivo:
                                                 caminho_Completo = os.path.join(raiz, arquivo)
                                                 nome_arquivo, ext_arquivo = os.path.splitext(arquivo)
                                                 local_salvar = "C:\\Users\\{}\\Documents\\Colaboradores\\{}\\{}{}".format(usuario, funcionários[saida],nome_arquivo,ext_arquivo)
@@ -121,11 +121,14 @@ def main():
                                 if copiar_arquivos == "sim":
                                     for raiz, diretorios, arquivos in os.walk("C:\\Users\\{}".format(usuario)):
                                         for arquivo in arquivos:
-                                            if entrada in arquivo.lower():
+                                            if funcionários[saida] in arquivo:
                                                 caminho_Completo = os.path.join(raiz, arquivo)
                                                 nome_arquivo, ext_arquivo = os.path.splitext(arquivo)
                                                 local_salvar = "C:\\Users\\{}\\Documents\\Colaboradores\\{}\\{}{}".format(usuario, funcionários[saida],nome_arquivo,ext_arquivo)
-                                                shutil.copyfile(caminho_Completo, local_salvar)
+                                                if arquivo in local_salvar:
+                                                    time.sleep(0.0001)
+                                                else:
+                                                    shutil.copyfile(caminho_Completo, local_salvar)
                                 
                             else:
                                 copiar_arquivos = str(input("Deseja copiar todos os arquivos existentes com o nome do colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
@@ -174,7 +177,7 @@ def main():
                             if copiar_arquivos == "sim":
                                 for raiz, diretorios, arquivos in os.walk("C:\\Users\\{}".format(usuario)):
                                     for arquivo in arquivos:
-                                        if entrada in arquivo:
+                                        if funcionários[saida] in arquivo:
                                             caminho_Completo = os.path.join(raiz, arquivo)
                                             nome_arquivo, ext_arquivo = os.path.splitext(arquivo)
                                             local_salvar = "C:\\Users\\{}\\Documents\\Colaboradores\\{}\\{}{}".format(usuario, funcionários[saida],nome_arquivo,ext_arquivo)
@@ -185,40 +188,43 @@ def main():
                             if copiar_arquivos == "sim":
                                 for raiz, diretorios, arquivos in os.walk("C:\\Users\\{}".format(usuario)):
                                     for arquivo in arquivos:
-                                        if entrada in arquivo:
+                                        if funcionários[saida] in arquivo:
                                             caminho_Completo = os.path.join(raiz, arquivo)
                                             nome_arquivo, ext_arquivo = os.path.splitext(arquivo)
                                             local_salvar = "C:\\Users\\{}\\Documents\\Colaboradores\\{}\\{}{}".format(usuario, funcionários[saida],nome_arquivo,ext_arquivo)
                                             shutil.copyfile(caminho_Completo, local_salvar)
                         
                     else:
-                            abrir_pasta = str(input("Deseja abrir o diretótio referênte ao colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
-                            if abrir_pasta == "sim":
-                                caminho=os.path.realpath(caminho)
-                                os.startfile(caminho)#Abrir diretório
-                                copiar_arquivos = str(input("Deseja copiar todos os arquivos existentes com o nome do colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
-                                if copiar_arquivos == "sim":
-                                    for raiz, diretorios, arquivos in os.walk("C:\\Users\\{}".format(usuario)):
-                                        for arquivo in arquivos:
-                                            if entrada in arquivo:
-                                                caminho_Completo = os.path.join(raiz, arquivo)
-                                                nome_arquivo, ext_arquivo = os.path.splitext(arquivo)
-                                                local_salvar = "C:\\Users\\{}\\Documents\\Colaboradores\\{}\\{}{}".format(usuario, funcionários[saida],nome_arquivo,ext_arquivo)
+                        abrir_pasta = str(input("Deseja abrir o diretótio referênte ao colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
+                        if abrir_pasta == "sim":
+                            caminho=os.path.realpath(caminho)
+                            os.startfile(caminho)#Abrir diretório
+                            copiar_arquivos = str(input("Deseja copiar todos os arquivos existentes com o nome do colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
+                            if copiar_arquivos == "sim":
+                                for raiz, diretorios, arquivos in os.walk("C:\\Users\\{}".format(usuario)):
+                                    for arquivo in arquivos:
+                                        if funcionários[saida] in arquivo:
+                                            caminho_Completo = os.path.join(raiz, arquivo)
+                                            nome_arquivo, ext_arquivo = os.path.splitext(arquivo)
+                                            local_salvar = "C:\\Users\\{}\\Documents\\Colaboradores\\{}\\{}{}".format(usuario, funcionários[saida],nome_arquivo,ext_arquivo)
+                                            if arquivo in local_salvar:
+                                                time.sleep(0.0001)
+                                            else:
                                                 shutil.copyfile(caminho_Completo, local_salvar)
                                 
-                            else:
-                                copiar_arquivos = str(input("Deseja copiar todos os arquivos existentes com o nome do colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
-                                if copiar_arquivos == "sim":
-                                    for raiz, diretorios, arquivos in os.walk("C:\\Users\\{}".format(usuario)):
-                                        for arquivo in arquivos:
-                                            if entrada in arquivo:
-                                                caminho_Completo = os.path.join(raiz, arquivo)
-                                                nome_arquivo, ext_arquivo = os.path.splitext(arquivo)
-                                                local_salvar = "C:\\Users\\{}\\Documents\\Colaboradores\\{}\\{}{}".format(usuario, funcionários[saida],nome_arquivo,ext_arquivo)
-                                                if arquivo in local_salvar:
-                                                    time.sleep(0.0001)
-                                                else:
-                                                    shutil.copyfile(caminho_Completo, local_salvar)
+                        else:
+                            copiar_arquivos = str(input("Deseja copiar todos os arquivos existentes com o nome do colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
+                            if copiar_arquivos == "sim":
+                                for raiz, diretorios, arquivos in os.walk("C:\\Users\\{}".format(usuario)):
+                                    for arquivo in arquivos:
+                                        if entrada in arquivo.lower():
+                                            caminho_Completo = os.path.join(raiz, arquivo)
+                                            nome_arquivo, ext_arquivo = os.path.splitext(arquivo)
+                                            local_salvar = "C:\\Users\\{}\\Documents\\Colaboradores\\{}\\{}{}".format(usuario, funcionários[saida],nome_arquivo,ext_arquivo)
+                                            if arquivo in local_salvar:
+                                                time.sleep(0.0001)
+                                            else:
+                                                shutil.copyfile(caminho_Completo, local_salvar)
                                     
                 else:
                     print("\nMatrícula incorreta... Digite novamente...")
@@ -260,7 +266,7 @@ def main():
                                 if copiar_arquivos == "sim":
                                     for raiz, diretorios, arquivos in os.walk("C:\\Users\\{}".format(usuario)):
                                         for arquivo in arquivos:
-                                            if entrada in arquivo:
+                                            if funcionários[saida] in arquivo:
                                                 caminho_Completo = os.path.join(raiz, arquivo)
                                                 nome_arquivo, ext_arquivo = os.path.splitext(arquivo)
                                                 local_salvar = "C:\\Users\\{}\\Documents\\Colaboradores\\{}\\{}{}".format(usuario, funcionários[saida],nome_arquivo,ext_arquivo)
@@ -271,7 +277,7 @@ def main():
                                 if copiar_arquivos == "sim":
                                     for raiz, diretorios, arquivos in os.walk("C:\\Users\\{}".format(usuario)):
                                         for arquivo in arquivos:
-                                            if entrada in arquivo:
+                                            if funcionários[saida] in arquivo:
                                                 caminho_Completo = os.path.join(raiz, arquivo)
                                                 nome_arquivo, ext_arquivo = os.path.splitext(arquivo)
                                                 local_salvar = "C:\\Users\\{}\\Documents\\Colaboradores\\{}\\{}{}".format(usuario, funcionários[saida],nome_arquivo,ext_arquivo)
@@ -286,18 +292,21 @@ def main():
                                 if copiar_arquivos == "sim":
                                     for raiz, diretorios, arquivos in os.walk("C:\\Users\\{}".format(usuario)):
                                         for arquivo in arquivos:
-                                            if entrada in arquivo:
+                                            if funcionários[saida] in arquivo:
                                                 caminho_Completo = os.path.join(raiz, arquivo)
                                                 nome_arquivo, ext_arquivo = os.path.splitext(arquivo)
                                                 local_salvar = "C:\\Users\\{}\\Documents\\Colaboradores\\{}\\{}{}".format(usuario, funcionários[saida],nome_arquivo,ext_arquivo)
-                                                shutil.copyfile(caminho_Completo, local_salvar)
+                                                if arquivo in local_salvar:
+                                                    time.sleep(0.0001)
+                                                else:
+                                                    shutil.copyfile(caminho_Completo, local_salvar)
                                 
                             else:
                                 copiar_arquivos = str(input("Deseja copiar todos os arquivos existentes com o nome do colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
                                 if copiar_arquivos == "sim":
                                     for raiz, diretorios, arquivos in os.walk("C:\\Users\\{}".format(usuario)):
                                         for arquivo in arquivos:
-                                            if entrada in arquivo:
+                                            if entrada in arquivo.lower():
                                                 caminho_Completo = os.path.join(raiz, arquivo)
                                                 nome_arquivo, ext_arquivo = os.path.splitext(arquivo)
                                                 local_salvar = "C:\\Users\\{}\\Documents\\Colaboradores\\{}\\{}{}".format(usuario, funcionários[saida],nome_arquivo,ext_arquivo)
@@ -346,7 +355,7 @@ def main():
                                 if copiar_arquivos == "sim":
                                     for raiz, diretorios, arquivos in os.walk("C:\\Users\\{}".format(usuario)):
                                         for arquivo in arquivos:
-                                            if entrada in arquivo:
+                                            if funcionários[saida] in arquivo:
                                                 caminho_Completo = os.path.join(raiz, arquivo)
                                                 nome_arquivo, ext_arquivo = os.path.splitext(arquivo)
                                                 local_salvar = "C:\\Users\\{}\\Documents\\Colaboradores\\{}\\{}{}".format(usuario, funcionários[saida],nome_arquivo,ext_arquivo)
@@ -357,7 +366,7 @@ def main():
                                 if copiar_arquivos == "sim":
                                     for raiz, diretorios, arquivos in os.walk("C:\\Users\\{}".format(usuario)):
                                         for arquivo in arquivos:
-                                            if entrada in arquivo:
+                                            if funcionários[saida] in arquivo:
                                                 caminho_Completo = os.path.join(raiz, arquivo)
                                                 nome_arquivo, ext_arquivo = os.path.splitext(arquivo)
                                                 local_salvar = "C:\\Users\\{}\\Documents\\Colaboradores\\{}\\{}{}".format(usuario, funcionários[saida],nome_arquivo,ext_arquivo)
@@ -372,18 +381,21 @@ def main():
                                 if copiar_arquivos == "sim":
                                     for raiz, diretorios, arquivos in os.walk("C:\\Users\\{}".format(usuario)):
                                         for arquivo in arquivos:
-                                            if entrada in arquivo:
+                                            if funcionários[saida] in arquivo:
                                                 caminho_Completo = os.path.join(raiz, arquivo)
                                                 nome_arquivo, ext_arquivo = os.path.splitext(arquivo)
                                                 local_salvar = "C:\\Users\\{}\\Documents\\Colaboradores\\{}\\{}{}".format(usuario, funcionários[saida],nome_arquivo,ext_arquivo)
-                                                shutil.copyfile(caminho_Completo, local_salvar)
+                                                if arquivo in local_salvar:
+                                                    time.sleep(0.0001)
+                                                else:
+                                                    shutil.copyfile(caminho_Completo, local_salvar)
                                 
                             else:
                                 copiar_arquivos = str(input("Deseja copiar todos os arquivos existentes com o nome do colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
                                 if copiar_arquivos == "sim":
                                     for raiz, diretorios, arquivos in os.walk("C:\\Users\\{}".format(usuario)):
                                         for arquivo in arquivos:
-                                            if entrada in arquivo:
+                                            if entrada in arquivo.lower():
                                                 caminho_Completo = os.path.join(raiz, arquivo)
                                                 nome_arquivo, ext_arquivo = os.path.splitext(arquivo)
                                                 local_salvar = "C:\\Users\\{}\\Documents\\Colaboradores\\{}\\{}{}".format(usuario, funcionários[saida],nome_arquivo,ext_arquivo)
