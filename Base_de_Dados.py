@@ -194,7 +194,7 @@ def main():
 
             while a == "1":
 
-                entrada = str(input("Digite a Função que deseja buscar: ")).lower()
+                entrada = str(input("Digite a Função que deseja buscar: ")).upper()
                 b = 0
                 c = 0
 
@@ -254,7 +254,7 @@ def main():
 
             while a == "1":
 
-                entrada = str(input("Digite a Equipe que deseja buscar: ")).lower()
+                entrada = str(input("Digite a Equipe que deseja buscar: ")).upper()
                 b = 0
                 c = 0
 
