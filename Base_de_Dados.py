@@ -69,6 +69,23 @@ def main():
                 caminho=os.path.realpath(caminho_Completo)
                 shutil.rmtree(caminho)
 
+    #Copiar Arquivos de todos os colaboradores para suas pastas
+    i = 0
+    copiar_arquivos = str(input("\nDeseja copiar todos os arquivos existentes com o nome dos colaboradores em sua respectiva pasta?\n'sim' ou 'não'?\n")).lower()
+    if copiar_arquivos == "sim":
+        while i!= len(funcionários):
+            for raiz, diretorios, arquivos in os.walk("C:\\Users\\{}".format(usuario)):
+                for arquivo in arquivos:
+                    if funcionários[i] in arquivo: #Verifica se consta o nome do funcionário (Nome que completo que consta na base de dados) em algum arquivo
+                        caminho_Completo = os.path.join(raiz, arquivo)
+                        nome_arquivo, ext_arquivo = os.path.splitext(arquivo)
+                        local_salvar = "C:\\Users\\{}\\Documents\\Colaboradores\\{}\\{}{}".format(usuario, funcionários[i],nome_arquivo,ext_arquivo)
+                        if os.path.exists(local_salvar):
+                            print("O Arquivo {}{} já existe na pasta do Colaborador {}".format(nome_arquivo,ext_arquivo,funcionários[i]))
+                        else:
+                            shutil.copyfile(caminho_Completo, local_salvar) #Copia os Arquivos com o nome deste funcionário para a sua pasta
+            i += 1
+
     #Buscar informações dos colaboradores que constam na base de dados
     def buscar_informação():
 
@@ -80,7 +97,7 @@ def main():
 
             while a == "1":
 
-                entrada = str(input("Digite o nome do funcionário: ")).upper()
+                entrada = str(input("\nDigite o nome do funcionário: ")).upper()
                 b=0
                 c=0
 
@@ -99,11 +116,12 @@ def main():
                         print("Equipe:{}\n".format(equipes[saida]).upper())
 
                         #Abrir diretório
-                        abrir_pasta = str(input("Deseja abrir o diretótio referênte ao colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
+                        abrir_pasta = str(input("\nDeseja abrir o diretótio referênte ao colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
                         if abrir_pasta == "sim":
+                            caminho = "C:\\Users\\{}\\Documents\\Colaboradores\\{}".format(usuario, funcionários[saida])
                             caminho=os.path.realpath(caminho)
                             os.startfile(caminho)
-                            copiar_arquivos = str(input("Deseja copiar todos os arquivos existentes com o nome do colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
+                            copiar_arquivos = str(input("\nDeseja copiar todos os arquivos existentes com o nome do colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
                             if copiar_arquivos == "sim":
 
                                 #Buscar Arquivos e Diretórios na raiz
@@ -113,13 +131,13 @@ def main():
                                             caminho_Completo = os.path.join(raiz, arquivo)
                                             nome_arquivo, ext_arquivo = os.path.splitext(arquivo)
                                             local_salvar = "C:\\Users\\{}\\Documents\\Colaboradores\\{}\\{}{}".format(usuario, funcionários[saida],nome_arquivo,ext_arquivo)
-                                            if arquivo in local_salvar:
-                                                time.sleep(0.0001)
+                                            if os.path.exists(local_salvar):
+                                                print("O Arquivo {}{} já existe na pasta do Colaborador {}".format(nome_arquivo,ext_arquivo,funcionários[saida]))
                                             else:
                                                 shutil.copyfile(caminho_Completo, local_salvar) #Copia os Arquivos com o nome deste funcionário para a sua pasta
                                 
                         else:
-                            copiar_arquivos = str(input("Deseja copiar todos os arquivos existentes com o nome do colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
+                            copiar_arquivos = str(input("\nDeseja copiar todos os arquivos existentes com o nome do colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
                             if copiar_arquivos == "sim":
                                 for raiz, diretorios, arquivos in os.walk("C:\\Users\\{}".format(usuario)):
                                     for arquivo in arquivos:
@@ -127,8 +145,8 @@ def main():
                                             caminho_Completo = os.path.join(raiz, arquivo)
                                             nome_arquivo, ext_arquivo = os.path.splitext(arquivo)
                                             local_salvar = "C:\\Users\\{}\\Documents\\Colaboradores\\{}\\{}{}".format(usuario, funcionários[saida],nome_arquivo,ext_arquivo)
-                                            if arquivo in local_salvar:
-                                                time.sleep(0.0001)
+                                            if os.path.exists(local_salvar):
+                                                print("O Arquivo {}{} já existe na pasta do Colaborador {}".format(nome_arquivo,ext_arquivo,funcionários[saida]))
                                             else:
                                                 shutil.copyfile(caminho_Completo, local_salvar)
                                 
@@ -154,25 +172,29 @@ def main():
                     print("Equipe:{}\n".format(equipes[saida]).upper())
                     a = "0"
 
-                    abrir_pasta = str(input("Deseja abrir o diretótio referênte ao colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
+                    #Abrir diretório
+                    abrir_pasta = str(input("\nDeseja abrir o diretótio referênte ao colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
                     if abrir_pasta == "sim":
+                        caminho = "C:\\Users\\{}\\Documents\\Colaboradores\\{}".format(usuario, funcionários[saida])
                         caminho=os.path.realpath(caminho)
-                        os.startfile(caminho)#Abrir diretório
-                        copiar_arquivos = str(input("Deseja copiar todos os arquivos existentes com o nome do colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
+                        os.startfile(caminho)
+                        copiar_arquivos = str(input("\nDeseja copiar todos os arquivos existentes com o nome do colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
                         if copiar_arquivos == "sim":
+
+                            #Buscar Arquivos e Diretórios na raiz
                             for raiz, diretorios, arquivos in os.walk("C:\\Users\\{}".format(usuario)):
                                 for arquivo in arquivos:
-                                    if funcionários[saida] in arquivo:
+                                    if funcionários[saida] in arquivo: #Verifica se consta o nome do funcionário (Nome que completo que consta na base de dados) em algum arquivo
                                         caminho_Completo = os.path.join(raiz, arquivo)
                                         nome_arquivo, ext_arquivo = os.path.splitext(arquivo)
                                         local_salvar = "C:\\Users\\{}\\Documents\\Colaboradores\\{}\\{}{}".format(usuario, funcionários[saida],nome_arquivo,ext_arquivo)
-                                        if arquivo in local_salvar:
-                                            time.sleep(0.0001)
+                                        if os.path.exists(local_salvar):
+                                            print("O Arquivo {}{} já existe na pasta do Colaborador {}".format(nome_arquivo,ext_arquivo,funcionários[saida]))
                                         else:
-                                            shutil.copyfile(caminho_Completo, local_salvar)
+                                            shutil.copyfile(caminho_Completo, local_salvar) #Copia os Arquivos com o nome deste funcionário para a sua pasta
                                 
                     else:
-                        copiar_arquivos = str(input("Deseja copiar todos os arquivos existentes com o nome do colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
+                        copiar_arquivos = str(input("\nDeseja copiar todos os arquivos existentes com o nome do colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
                         if copiar_arquivos == "sim":
                             for raiz, diretorios, arquivos in os.walk("C:\\Users\\{}".format(usuario)):
                                 for arquivo in arquivos:
@@ -180,8 +202,8 @@ def main():
                                         caminho_Completo = os.path.join(raiz, arquivo)
                                         nome_arquivo, ext_arquivo = os.path.splitext(arquivo)
                                         local_salvar = "C:\\Users\\{}\\Documents\\Colaboradores\\{}\\{}{}".format(usuario, funcionários[saida],nome_arquivo,ext_arquivo)
-                                        if arquivo in local_salvar:
-                                            time.sleep(0.0001)
+                                        if os.path.exists(local_salvar):
+                                            print("O Arquivo {}{} já existe na pasta do Colaborador {}".format(nome_arquivo,ext_arquivo,funcionários[saida]))
                                         else:
                                             shutil.copyfile(caminho_Completo, local_salvar)
                                     
@@ -214,25 +236,29 @@ def main():
                         a = "0" 
                         b+=1 
 
-                        abrir_pasta = str(input("Deseja abrir o diretótio referênte ao colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
+                        #Abrir diretório
+                        abrir_pasta = str(input("\nDeseja abrir o diretótio referênte ao colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
                         if abrir_pasta == "sim":
+                            caminho = "C:\\Users\\{}\\Documents\\Colaboradores\\{}".format(usuario, funcionários[saida])
                             caminho=os.path.realpath(caminho)
-                            os.startfile(caminho)#Abrir diretório
-                            copiar_arquivos = str(input("Deseja copiar todos os arquivos existentes com o nome do colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
+                            os.startfile(caminho)
+                            copiar_arquivos = str(input("\nDeseja copiar todos os arquivos existentes com o nome do colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
                             if copiar_arquivos == "sim":
+
+                                #Buscar Arquivos e Diretórios na raiz
                                 for raiz, diretorios, arquivos in os.walk("C:\\Users\\{}".format(usuario)):
                                     for arquivo in arquivos:
-                                        if funcionários[saida] in arquivo:
+                                        if funcionários[saida] in arquivo: #Verifica se consta o nome do funcionário (Nome que completo que consta na base de dados) em algum arquivo
                                             caminho_Completo = os.path.join(raiz, arquivo)
                                             nome_arquivo, ext_arquivo = os.path.splitext(arquivo)
                                             local_salvar = "C:\\Users\\{}\\Documents\\Colaboradores\\{}\\{}{}".format(usuario, funcionários[saida],nome_arquivo,ext_arquivo)
-                                            if arquivo in local_salvar:
-                                                time.sleep(0.0001)
+                                            if os.path.exists(local_salvar):
+                                                print("O Arquivo {}{} já existe na pasta do Colaborador {}".format(nome_arquivo,ext_arquivo,funcionários[saida]))
                                             else:
-                                                shutil.copyfile(caminho_Completo, local_salvar)
+                                                shutil.copyfile(caminho_Completo, local_salvar) #Copia os Arquivos com o nome deste funcionário para a sua pasta
                                 
                         else:
-                            copiar_arquivos = str(input("Deseja copiar todos os arquivos existentes com o nome do colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
+                            copiar_arquivos = str(input("\nDeseja copiar todos os arquivos existentes com o nome do colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
                             if copiar_arquivos == "sim":
                                 for raiz, diretorios, arquivos in os.walk("C:\\Users\\{}".format(usuario)):
                                     for arquivo in arquivos:
@@ -240,8 +266,8 @@ def main():
                                             caminho_Completo = os.path.join(raiz, arquivo)
                                             nome_arquivo, ext_arquivo = os.path.splitext(arquivo)
                                             local_salvar = "C:\\Users\\{}\\Documents\\Colaboradores\\{}\\{}{}".format(usuario, funcionários[saida],nome_arquivo,ext_arquivo)
-                                            if arquivo in local_salvar:
-                                                time.sleep(0.0001)
+                                            if os.path.exists(local_salvar):
+                                                print("O Arquivo {}{} já existe na pasta do Colaborador {}".format(nome_arquivo,ext_arquivo,funcionários[saida]))
                                             else:
                                                 shutil.copyfile(caminho_Completo, local_salvar)
 
@@ -274,25 +300,29 @@ def main():
                         a = "0" 
                         b+=1 
 
-                        abrir_pasta = str(input("Deseja abrir o diretótio referênte ao colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
+                        #Abrir diretório
+                        abrir_pasta = str(input("\nDeseja abrir o diretótio referênte ao colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
                         if abrir_pasta == "sim":
+                            caminho = "C:\\Users\\{}\\Documents\\Colaboradores\\{}".format(usuario, funcionários[saida])
                             caminho=os.path.realpath(caminho)
-                            os.startfile(caminho)#Abrir diretório
-                            copiar_arquivos = str(input("Deseja copiar todos os arquivos existentes com o nome do colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
+                            os.startfile(caminho)
+                            copiar_arquivos = str(input("\nDeseja copiar todos os arquivos existentes com o nome do colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
                             if copiar_arquivos == "sim":
+
+                                #Buscar Arquivos e Diretórios na raiz
                                 for raiz, diretorios, arquivos in os.walk("C:\\Users\\{}".format(usuario)):
                                     for arquivo in arquivos:
-                                        if funcionários[saida] in arquivo:
+                                        if funcionários[saida] in arquivo: #Verifica se consta o nome do funcionário (Nome que completo que consta na base de dados) em algum arquivo
                                             caminho_Completo = os.path.join(raiz, arquivo)
                                             nome_arquivo, ext_arquivo = os.path.splitext(arquivo)
                                             local_salvar = "C:\\Users\\{}\\Documents\\Colaboradores\\{}\\{}{}".format(usuario, funcionários[saida],nome_arquivo,ext_arquivo)
-                                            if arquivo in local_salvar:
-                                                time.sleep(0.0001)
+                                            if os.path.exists(local_salvar):
+                                                print("O Arquivo {}{} já existe na pasta do Colaborador {}".format(nome_arquivo,ext_arquivo,funcionários[saida]))
                                             else:
-                                                shutil.copyfile(caminho_Completo, local_salvar)
+                                                shutil.copyfile(caminho_Completo, local_salvar) #Copia os Arquivos com o nome deste funcionário para a sua pasta
                                 
                         else:
-                            copiar_arquivos = str(input("Deseja copiar todos os arquivos existentes com o nome do colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
+                            copiar_arquivos = str(input("\nDeseja copiar todos os arquivos existentes com o nome do colaborador {}?\n'sim' ou 'não'?\n".format(funcionários[saida]))).lower()
                             if copiar_arquivos == "sim":
                                 for raiz, diretorios, arquivos in os.walk("C:\\Users\\{}".format(usuario)):
                                     for arquivo in arquivos:
@@ -300,8 +330,8 @@ def main():
                                             caminho_Completo = os.path.join(raiz, arquivo)
                                             nome_arquivo, ext_arquivo = os.path.splitext(arquivo)
                                             local_salvar = "C:\\Users\\{}\\Documents\\Colaboradores\\{}\\{}{}".format(usuario, funcionários[saida],nome_arquivo,ext_arquivo)
-                                            if arquivo in local_salvar:
-                                                time.sleep(0.0001)
+                                            if os.path.exists(local_salvar):
+                                                print("O Arquivo {}{} já existe na pasta do Colaborador {}".format(nome_arquivo,ext_arquivo,funcionários[saida]))
                                             else:
                                                 shutil.copyfile(caminho_Completo, local_salvar)
 
